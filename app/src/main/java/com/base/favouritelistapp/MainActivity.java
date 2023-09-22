@@ -26,7 +26,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements CategoryRecyclerAdapter.CategoryIsClickedInterface {
 
     public  static final String CATEGORY_OBJECT_KEY = "CATEGORY_KEY";
 
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Category> categories =mCategoryManager.retrieveCategories();
         catagory_recyclerView = findViewById(R.id.catagory_recyclerView);
 
-        catagory_recyclerView.setAdapter(new CategoryRecyclerAdapter(categories));
+        catagory_recyclerView.setAdapter(new CategoryRecyclerAdapter(categories,this));
         catagory_recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         FloatingActionButton fab =findViewById(R.id.fab);
@@ -98,5 +98,10 @@ public class MainActivity extends AppCompatActivity {
 
         startActivity(categoryItemsIntent);
 
+    }
+
+    @Override
+    public void categoryIsClicked(Category category) {
+        displayCategoryItems(category);
     }
 }
