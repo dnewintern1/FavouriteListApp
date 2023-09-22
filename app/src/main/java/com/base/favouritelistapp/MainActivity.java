@@ -1,6 +1,7 @@
 package com.base.favouritelistapp;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -26,6 +27,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+
+    public  static final String CATEGORY_OBJECT_KEY = "CATEGORY_KEY";
 
     private RecyclerView catagory_recyclerView;
     private ActivityMainBinding binding;
@@ -76,14 +79,24 @@ public class MainActivity extends AppCompatActivity {
                 mCategoryManager.saveCategory(category);
 
                 CategoryRecyclerAdapter categoryRecyclerAdapter = (CategoryRecyclerAdapter) catagory_recyclerView.getAdapter();
-                CategoryRecyclerAdapter.addCategory(category);
+                categoryRecyclerAdapter.addCategory(category);
 
                 dialogInterface.dismiss();
+                displayCategoryItems(category);
 
 
             }
         });
         alertBuilder.create().show();
+
+    }
+
+    private  void displayCategoryItems(Category category){
+
+        Intent categoryItemsIntent = new Intent(this,CategoryItemsActivity.class);
+        categoryItemsIntent.putExtra(CATEGORY_OBJECT_KEY,category);
+
+        startActivity(categoryItemsIntent);
 
     }
 }

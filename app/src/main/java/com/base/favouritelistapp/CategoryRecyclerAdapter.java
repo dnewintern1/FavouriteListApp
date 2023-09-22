@@ -16,12 +16,23 @@ import kotlin.collections.IntIterator;
 
 public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
 
+    interface CategoryIsClickedInterface{
+
+        void categoryIsClicked(Category category);
+
+
+    }
+
+    private CategoryIsClickedInterface categoryIsClickedInterface;
+
   //  String[] catagories = {"hobbies","Electronic gadget", "games", "food", "Counteries", "sport"};
 
-    private ArrayList<Category> catagories;
+    private   ArrayList<Category> categories;
 
-    public CategoryRecyclerAdapter(ArrayList<Category> catagories) {
-        this.catagories = catagories;
+    public CategoryRecyclerAdapter(ArrayList<Category> categories, CategoryIsClickedInterface categoryIsClickedInterface) {
+
+        this.categories = categories;
+        this.categoryIsClickedInterface = categoryIsClickedInterface;
     }
 
     @NonNull
@@ -38,11 +49,31 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryViewHo
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
 
         holder.getCategory_no_txtV().setText(Integer.toString(position + 1));
-        holder.getCategory_name_txt().setText(catagories[position]);
+        holder.getCategory_name_txt().setText(categories.get(position).getName());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                categoryIsClickedInterface.categoryIsClicked(categories.get(position));
+            }
+        });
+
+
     }
 
     @Override
     public int getItemCount() {
-        return catagories.length;
+        return categories.size();
     }
+
+    public  void    addCategory(Category category){
+
+        categories.add(category);
+
+        notifyItemInserted(categories.size()-1);
+
+
+    }
+
+
 }
