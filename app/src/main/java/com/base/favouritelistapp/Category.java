@@ -13,6 +13,10 @@ public class Category implements Serializable {
         this.items = items;
     }
 
+    public void setItems(ArrayList<String> items) {
+        this.items = items;
+    }
+
     public String getName() {
         return name;
     }

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -18,12 +20,12 @@ public class CategoryManager {
         mContext = context;
     }
 
-    public void saveCategory(Category category){
+    public void  saveCategory(@NonNull Category category){
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
         SharedPreferences.Editor editor= sharedPreferences.edit();
 
-        HashSet itemsHashSet = new HashSet(Arrays.asList(category.getItems()));
+        HashSet itemsHashSet = new HashSet(category.getItems());
         editor.putStringSet(category.getName(), itemsHashSet);
 
         editor.apply();

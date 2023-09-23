@@ -6,6 +6,9 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="positivebtnitem">Create Item</string>
+    <string name="dialogitemrecy">Please set the name of the items here</string>
+
 
     <string name="create_Cat">Enter the Name of the Catagory</string>
 </resources>
