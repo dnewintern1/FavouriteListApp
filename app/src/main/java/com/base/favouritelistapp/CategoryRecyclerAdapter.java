@@ -1,5 +1,6 @@
 package com.base.favouritelistapp;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -23,16 +24,16 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryViewHo
 
     }
 
-    private CategoryIsClickedInterface categoryIsClickedInterface;
+    private CategoryIsClickedInterface categoryIsClickedListener;
 
   //  String[] catagories = {"hobbies","Electronic gadget", "games", "food", "Counteries", "sport"};
 
     private   ArrayList<Category> categories;
 
-    public CategoryRecyclerAdapter(ArrayList<Category> categories, CategoryIsClickedInterface categoryIsClickedInterface) {
+    public CategoryRecyclerAdapter(ArrayList<Category> categories, CategoryIsClickedInterface categoryIsClickedListener) {
 
         this.categories = categories;
-        this.categoryIsClickedInterface = categoryIsClickedInterface;
+        this.categoryIsClickedListener = categoryIsClickedListener;
     }
 
     @NonNull
@@ -46,7 +47,7 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CategoryViewHolder holder, @SuppressLint("RecyclerView") final int position) {
 
         holder.getCategory_no_txtV().setText(Integer.toString(position + 1));
         holder.getCategory_name_txt().setText(categories.get(position).getName());
@@ -54,7 +55,7 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryViewHo
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                categoryIsClickedInterface.categoryIsClicked(categories.get(position));
+                categoryIsClickedListener.categoryIsClicked(categories.get(position));
             }
         });
 

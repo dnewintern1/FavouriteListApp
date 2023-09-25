@@ -25,20 +25,25 @@ import com.base.favouritelistapp.databinding.ActivityMainBinding;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements CategoryRecyclerAdapter.CategoryIsClickedInterface {
+public class MainActivity extends AppCompatActivity  implements CategoryFragment.onCategoryInteractionListener {
 
     public  static final String CATEGORY_OBJECT_KEY = "CATEGORY_KEY";
     public  static final int MAIN_ACTIVITY_REQUEST_CODE = 1000;
-
-    private RecyclerView catagory_recyclerView;
     private ActivityMainBinding binding;
 
-    private  CategoryManager mCategoryManager=new CategoryManager(this);
+    private CategoryFragment mCategoryFragment=CategoryFragment.newInstance();
+
+    private FrameLayout mFrameLayout;
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +54,13 @@ public class MainActivity extends AppCompatActivity implements CategoryRecyclerA
 
         setSupportActionBar(binding.toolbar);
 
-        ArrayList<Category> categories =mCategoryManager.retrieveCategories();
-        catagory_recyclerView = findViewById(R.id.catagory_recyclerView);
 
-        catagory_recyclerView.setAdapter(new CategoryRecyclerAdapter(categories,this));
-        catagory_recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.category_fragment_container ,mCategoryFragment)
+                .commit();
+
+
 
         FloatingActionButton fab =findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -81,11 +88,7 @@ public class MainActivity extends AppCompatActivity implements CategoryRecyclerA
             public void onClick(DialogInterface dialogInterface, int i) {
 
                 Category category = new Category(categoryEditText.getText().toString(), new ArrayList<String>() );
-                mCategoryManager.saveCategory(category);
-
-                CategoryRecyclerAdapter categoryRecyclerAdapter = (CategoryRecyclerAdapter) catagory_recyclerView.getAdapter();
-                categoryRecyclerAdapter.addCategory(category);
-
+                mCategoryFragment.giveCategoryToManager(category);
                 dialogInterface.dismiss();
                 displayCategoryItems(category);
 
@@ -111,21 +114,21 @@ public class MainActivity extends AppCompatActivity implements CategoryRecyclerA
 
         if(requestCode == MAIN_ACTIVITY_REQUEST_CODE && resultCode == Activity.RESULT_OK){
             if(data!=null){
-                mCategoryManager.saveCategory((Category) data.getSerializableExtra(CATEGORY_OBJECT_KEY));
-                updateCategories();
+                mCategoryFragment.saveCategory((Category)data.getSerializableExtra(CATEGORY_OBJECT_KEY));
             }
         }
     }
 
-    private void updateCategories() {
 
-        ArrayList<Category> categories =  mCategoryManager.retrieveCategories();
-        catagory_recyclerView.setAdapter(new CategoryRecyclerAdapter(categories,this));
-
-    }
 
     @Override
-    public void categoryIsClicked(Category category) {
+    public void categoryIsTapped(Category category) {
+
         displayCategoryItems(category);
+
     }
+
+    // helpful methods
+
+
 }
