@@ -13,6 +13,13 @@ public class ItemsRecyclerAdapter extends RecyclerView.Adapter<ItemViewHolder> {
 
      private  RecyclerView items_recyclerView;
 
+     public void setCategory(Category category){
+
+         this.category = category;
+
+
+     }
+
     public ItemsRecyclerAdapter(Category category) {
         this.category = category;
     }

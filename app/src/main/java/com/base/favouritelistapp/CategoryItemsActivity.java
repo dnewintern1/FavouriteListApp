@@ -2,6 +2,7 @@ package com.base.favouritelistapp;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,8 +20,9 @@ import java.util.ArrayList;
 
 public class CategoryItemsActivity extends AppCompatActivity {
 
-    private RecyclerView items_recyclerView;
+
     private FloatingActionButton add_item_btn;
+    private  RecyclerView items_recyclerView;
 
     Category category ;
 
@@ -29,6 +31,7 @@ public class CategoryItemsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_items);
+
 
        category = (Category) getIntent().getSerializableExtra(MainActivity.CATEGORY_OBJECT_KEY);
 
@@ -39,6 +42,7 @@ public class CategoryItemsActivity extends AppCompatActivity {
 
         items_recyclerView.setAdapter(new ItemsRecyclerAdapter(category));
         items_recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         add_item_btn = findViewById(R.id.add_item_btn);
 
         add_item_btn.setOnClickListener(new View.OnClickListener() {

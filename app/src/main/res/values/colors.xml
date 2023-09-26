@@ -3,4 +3,15 @@
     <color name="black">#FF000000</color>
     <color name="blue">#03dbfc</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="actionBar">#CC99FF</color>
+
+    <color name="primaryColor">#e91e63</color>
+    <color name="primaryLightColor">#ff6090</color>
+    <color name="primaryDarkColor">#b0003a</color>
+    <color name="secondaryColor">#1de9b6</color>
+    <color name="secondaryLightColor">#6effe8</color>
+    <color name="secondaryDarkColor">#00b686</color>
+    <color name="primaryTextColor">#000000</color>
+    <color name="secondaryTextColor">#000000</color>
+
 </resources>

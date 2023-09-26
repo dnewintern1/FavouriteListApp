@@ -23,6 +23,14 @@ public class CategoryFragment extends Fragment implements CategoryRecyclerAdapte
 
     private  CategoryManager mCategoryManager;
 
+
+
+    public CategoryManager getmCategoryManager() {
+        return mCategoryManager;
+    }
+
+
+
     @Override
     public void categoryIsClicked(Category category) {
 
@@ -40,6 +48,7 @@ public class CategoryFragment extends Fragment implements CategoryRecyclerAdapte
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
+
 
             if(context instanceof onCategoryInteractionListener){
 
@@ -67,14 +76,18 @@ public class CategoryFragment extends Fragment implements CategoryRecyclerAdapte
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+
+
         ArrayList<Category> categories =mCategoryManager.retrieveCategories();
-        catagory_recyclerView = getView().findViewById(R.id.catagory_recyclerView);
+        catagory_recyclerView = getView().findViewById(R.id.items_recycler_view);
         if(getView() !=null) {
             catagory_recyclerView.setAdapter(new CategoryRecyclerAdapter(categories, this));
             catagory_recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
